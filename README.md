@@ -2,7 +2,7 @@
 
 A Java implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) extended with cell types, energy, moods, interactive tiles and global events, with every generation of a game saved to a database through JPA/Hibernate.
 
-Built as the team project (four students) for the Object-Oriented Programming course at Politecnico di Torino, 2025. The course provided a basic Game of Life, the requirements and the acceptance tests; the team implemented the extensions described below.
+Built as the project for the Object-Oriented Programming course at Politecnico di Torino, 2025. The course provided a basic Game of Life, the requirements and the acceptance tests; I implemented the extensions described below.
 
 ## What it does
 
@@ -92,7 +92,7 @@ Java 17, Maven, Jakarta Persistence 3.1, Hibernate ORM 6.4, H2, JUnit 4.
 
 ## Author
 
-Pietro Fabi (one of the four team members)
+Pietro Fabi
 
 ## Credits
 
