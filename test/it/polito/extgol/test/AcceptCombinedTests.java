@@ -3,7 +3,6 @@ package it.polito.extgol.test;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -31,14 +30,6 @@ public class AcceptCombinedTests {
     private ExtendedGameOfLife facade;
     private Game game;
     private Board board;
-
-    /**
-     * Close JPA after all tests.
-     */
-    @AfterClass
-    public static void closeDB() {
-        //JPAUtil.close()
-    }
 
     /**
      * Prepare a clean database and new game before each test.

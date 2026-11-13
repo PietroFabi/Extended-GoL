@@ -16,11 +16,6 @@ import jakarta.persistence.EntityTransaction;
  */
 public class ExtendedGameOfLife {
 
-    CellRepository cellRepository = new CellRepository();
-    BoardRepository boardRepository = new BoardRepository();
-    GameRepository gameRepository = new GameRepository();
-    GenerationRepository generationRepository = new GenerationRepository();
-
     /**
      * Computes and returns the next generation based on the current one.
      *
@@ -46,14 +41,16 @@ public class ExtendedGameOfLife {
                 "Generation must have associated Board and Game!");
         }
 
-        // step 0: enrolling event for everyone
+        // Step 0: apply the generation's event to every alive cell (dead cells do not update lifepoints)
         if (current.getEvent() != null){
             for (Tile tile : board.getTiles()){
                 Cell c = tile.getCell();
                 if (c == null) {
                     throw new IllegalStateException("Missing cell on tile " + tile);
                 }
-                game.unrollEvent(current.getEvent(), c);
+                if (c.isAlive()) {
+                    game.unrollEvent(current.getEvent(), c);
+                }
             }
         }
 
@@ -230,19 +227,6 @@ public class ExtendedGameOfLife {
         } finally {
             em.close();
         }
-    }
-
-    /**
-     * Loads and returns a persisted map of game events keyed by generation step.
-     *
-     * Delegates retrieval to the corresponding repository class, which in turn implements 
-     * the provided generic repository class for persistence. This method reconstructs 
-     * the event timeline for inspection or replay.
-     *
-     * @return A Map<Integer, EventType> mapping generation steps to associated events.
-     */
-    public Map<Integer, EventType> loadEvents() {
-        return null;
     }
 
 

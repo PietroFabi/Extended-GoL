@@ -5,16 +5,6 @@ import jakarta.persistence.EntityManager;
 public class GameRepository extends GenericExtGOLRepository<Game, Long> {
     public GameRepository()  { super(Game.class);  }
 
-    // find
-    public Game findGameByName(String name) {
-        EntityManager em = JPAUtil.getEntityManager();
-        try {
-            return em.createNamedQuery("SELECT g FROM GAME g WHERE g.name = :name", Game.class)
-                .setParameter("name", name).getSingleResult();
-        } finally {
-            em.close();
-        }
-    }
 
     /**
      * Load a game

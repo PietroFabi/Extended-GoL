@@ -17,8 +17,6 @@ import it.polito.extgol.Game;
 import it.polito.extgol.Generation;
 import it.polito.extgol.JPAUtil;
 import static it.polito.extgol.test.TestBranchUtils.assumeBranch;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 
 public class ExtGOLR3GameTests {
     private ExtendedGameOfLife facade;

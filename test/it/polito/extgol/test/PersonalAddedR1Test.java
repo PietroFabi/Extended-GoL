@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class PersonalAddedR1Test {
             try {
                 em.createNativeQuery("DELETE FROM " + table).executeUpdate();
             } catch (Exception e) {
-                System.out.println(table +" does not exist!");
+                // table not created yet: nothing to delete
             }
         }
         tx.commit();
@@ -73,30 +72,6 @@ public class PersonalAddedR1Test {
         Generation secondGeneration = result.getGenerations().get(1);
 
         assertEquals("naive should have 1 lifepoint because +1 for healer -1 for vampire and +1 for surviving", 1, secondGeneration.getBoard().getTile(new Coord(1, 1)).getCell().getLifePoints());
-
-    }
-
-    @Test
-    @Ignore
-    public void naiveVsTwoVampire(){
-        assumeBranch("R1");
-
-        Generation init = Generation.createInitial(game, game.getBoard(),List.of(
-                new Coord(1, 1),
-                new Coord(2, 1),
-                new Coord(1, 2)));
-        game.setMoods(CellMood.NAIVE, List.of(
-                new Coord(1,1)));
-        game.setMoods(CellMood.VAMPIRE, List.of(
-                new Coord(1,2),
-                new Coord(2, 1)));
-
-        Game result = facade.run(game, 1);
-        Generation secondGeneration = result.getGenerations().get(1);
-
-        assertEquals("naive should have -1 lifepoint because -1 for first vampire and then can't be touched", -1, secondGeneration.getBoard().getTile(new Coord(1, 1)).getCell().getLifePoints());
-        assertEquals("fist vampire should have 2 lifepoints because +1 with naive and +1 for  surviving", 2, secondGeneration.getBoard().getTile(new Coord(2, 1)).getCell().getLifePoints());
-        assertEquals("second vampire should have 1 lifepoints because naive is already dead and +1 for surviving", 1, secondGeneration.getBoard().getTile(new Coord(1, 2)).getCell().getLifePoints());
 
     }
 

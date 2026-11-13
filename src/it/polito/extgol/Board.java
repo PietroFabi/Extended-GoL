@@ -21,7 +21,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MapKey;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Transient;
 
 /**
  * Entity representing the game board grid in the Extended Game of Life.
@@ -366,15 +365,11 @@ public class Board {
      * @return a Map from CellType to the count of alive cells of that type
      */
     public Map<CellType, Integer> countCellsByType(Generation gen) {
-        // Initialize map based on existing Cell type
+        // Only types with at least one alive cell appear in the map
         Map<CellType, Integer> result = new EnumMap<>(CellType.class);
-        for (CellType type : CellType.values()) {
-            result.put(type, 0);
-        }
         for (Cell c : gen.getAliveCells()) {
             if (c.isAlive()) {
-                CellType type = c.getType();
-                result.put(type, result.get(type) + 1);
+                result.merge(c.getType(), 1, Integer::sum);
             }
         }
         return result;

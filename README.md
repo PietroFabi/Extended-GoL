@@ -15,7 +15,7 @@ On top of the classic survival, death and respawn rules, the simulation adds:
   - `SOCIAL` survives with up to eight neighbours.
 - **Moods and interactions.** Cells are `NAIVE`, `HEALER` or `VAMPIRE`. Healers give a life point to naive neighbours; vampires drain a life point from healers and naive cells, and turn naive cells into vampires.
 - **Interactive tiles.** Each board tile can add or remove life points from the cell on it at the start of every generation.
-- **Global events**, each lasting one generation:
+- **Global events**, each lasting one generation and affecting only alive cells:
 
   | Event | Effect |
   | --- | --- |
@@ -27,7 +27,7 @@ On top of the classic survival, death and respawn rules, the simulation adds:
 
 - **Board analytics** written with Java streams: alive-cell count, highest-energy cell, cells grouped by energy level or by number of alive neighbours, counts by cell type, top-N cells by energy, energy statistics per generation and as a time series.
 - **Text visualization** of any generation of the board.
-- **Persistence.** Games, boards, tiles, cells, generations and events are JPA entities stored in an in-memory H2 database. A saved game can be reloaded with its full timeline, including the per-generation state of each cell (alive or dead, life points, mood) and the scheduled events.
+- **Persistence.** Games, boards, tiles, cells, generations and events are JPA entities stored in an in-memory H2 database. Every generation stores a snapshot of each cell's state (alive or dead, life points, mood), and a saved game can be reloaded from the database together with its scheduled events.
 
 The complete rules are in [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md) (Italian version: [docs/REQUIREMENTS_it.md](docs/REQUIREMENTS_it.md)).
 
@@ -38,7 +38,7 @@ The complete rules are in [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md) (Italian 
 ├── resources/META-INF/
 │   └── persistence.xml             Hibernate + in-memory H2 configuration
 ├── src/it/polito/extgol/
-│   ├── ExtendedGameOfLife.java     Facade: evolve, run, visualize, save, load events
+│   ├── ExtendedGameOfLife.java     Facade: evolve, run, visualize, save
 │   ├── Game.java                   A simulation: board, generations, events
 │   ├── Generation.java             Snapshot of the board at one step
 │   ├── Board.java                  Grid of tiles, analytics, visualization
@@ -50,8 +50,8 @@ The complete rules are in [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md) (Italian 
 │   ├── Evolvable.java, Interactable.java
 │   ├── *Repository.java            JPA repositories
 │   └── JPAUtil.java                EntityManagerFactory helper
-├── test/it/polito/extgol/test/     JUnit 4 tests (61 test methods)
-└── docs/                           Requirements and code review checklist from the course
+├── test/it/polito/extgol/test/     JUnit 4 tests (60 test methods)
+└── docs/                           Requirements from the course (English and Italian)
 ```
 
 ## Build and test
@@ -62,7 +62,7 @@ Requirements: Java 17 or newer and Maven.
 mvn test
 ```
 
-The tests use an in-memory database, so nothing needs to be installed or configured. The database user and empty password in `persistence.xml` are H2's defaults for a throwaway in-memory database, not real credentials.
+All 60 tests pass (checked with JDK 24 and Maven 3.9). The tests use an in-memory database, so nothing needs to be installed or configured. The database user and empty password in `persistence.xml` are H2's defaults for a throwaway in-memory database, not real credentials.
 
 ## Example
 
@@ -89,6 +89,10 @@ facade.saveGame(result);
 ## Tech stack
 
 Java 17, Maven, Jakarta Persistence 3.1, Hibernate ORM 6.4, H2, JUnit 4.
+
+## Author
+
+Pietro Fabi (one of the four team members)
 
 ## Credits
 

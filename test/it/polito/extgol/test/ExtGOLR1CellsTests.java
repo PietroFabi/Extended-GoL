@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -24,14 +23,6 @@ public class ExtGOLR1CellsTests {
     private ExtendedGameOfLife facade;
     private Game game;
     private Board board;
-
-    /**
-     * Close JPA after all tests.
-     */
-    @AfterClass
-    public static void closeDB() {
-        //JPAUtil.close()
-    }
 
     /**
      * Prepare a clean database and new game before each test.

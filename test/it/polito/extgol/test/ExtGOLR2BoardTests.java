@@ -275,8 +275,6 @@ public class ExtGOLR2BoardTests {
         Game result = facade.run(big,1);
         Generation next = result.getGenerations().get(1);
         Map<Integer,List<Cell>> byNeighbor = board.groupByAliveNeighborCount(next);
-        System.out.println(facade.visualize(start));
-        System.out.println(facade.visualize(next));
         assertTrue(byNeighbor.containsKey(1));
         assertTrue(byNeighbor.containsKey(2));
         assertTrue(byNeighbor.containsKey(3));

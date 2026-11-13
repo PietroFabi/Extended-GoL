@@ -328,7 +328,7 @@ public class Game {
      * @return an immutable Map from generation step to EventType
      */
     public static Map<Integer, EventType> loadEvents(Game game) {
-        // dovrebbe però passare da una classe repository e il fetchType non dovrebbe essere EAGER
+        // Ideally this would go through a repository class, and the fetch type would not be EAGER
         return game.getEventMapInternal();
     }
 }

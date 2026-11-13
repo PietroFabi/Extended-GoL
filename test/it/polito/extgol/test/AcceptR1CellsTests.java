@@ -3,7 +3,6 @@ package it.polito.extgol.test;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -25,14 +24,6 @@ public class AcceptR1CellsTests {
     private ExtendedGameOfLife facade;
     private Game game;
     private Board board;
-
-    /**
-     * Close JPA after all tests.
-     */
-    @AfterClass
-    public static void closeDB() {
-        //JPAUtil.close()
-    }
 
     /**
      * Prepare a clean database and new game before each test.
@@ -154,7 +145,6 @@ public class AcceptR1CellsTests {
         
         // Only one vampire stole energy (-1) + 1 energy from 3 neighbours
         assertEquals(0, (int)lp1.get(exNaive1));
-        System.out.println(exNaive1.isAlive());
 
     }
 
